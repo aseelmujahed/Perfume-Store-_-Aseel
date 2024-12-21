@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfume Store</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-       
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+
 </head>
 
 <body>
@@ -54,12 +55,12 @@
 
 
     <section id="about">
-        <h2>About Us</h2>
+        <h2>About us</h2>
         <p>Our mission is to bring the best fragrances to you. We value quality and customer satisfaction.</p>
     </section>
 
     <section id="contact">
-        <h2>Contact Us</h2>
+        <h2>Contact us</h2>
         <form id="contact-form">
             <label for="name">Name:</label>
             <input type="text" id="name" required>
@@ -132,11 +133,8 @@
 
         }
 
-        $(document).ready(function () {
-            fetchProducts();
-        });
-
-        $(document).on('click', '.add-to-cart', function () {
+        $(document).on('click', '.add-to-cart', function (event) {
+            event.stopPropagation();
             const product = $(this).closest('.product');
             const id = product.data('id');
             const title = product.data('title');
@@ -221,30 +219,36 @@
                 e.preventDefault();
                 const target = $(this.hash);
                 $('html, body').animate(
-                    { scrollTop: target.offset().top -170 },
+                    { scrollTop: target.offset().top - 170 },
                     800
                 );
             }
         });
 
-        $(document).on('click', '.product', function () {
-            const product = $(this);
+        $(document).on('click', '.product img', function () {
+            const product = $(this).closest('.product');
             const title = product.data('title');
             const price = product.data('price');
-            const description = product.find('p').first().text(); 
-            const image = product.find('img').attr('src'); 
+            const description = product.find('p').first().text();
+            const image = $(this).attr('src');
 
             $('#modal-title').text(title);
             $('#modal-price').text(price);
             $('#modal-body').text(description);
             $('#modal-image').attr('src', image);
-
+            
             $('#product-modal, #modal-overlay').fadeIn();
         });
-      
+
+
         $('#close-modal, #modal-overlay').on('click', function () {
             $('#product-modal, #modal-overlay').fadeOut();
         });
+
+        $(document).ready(function () {
+            fetchProducts();
+        });
+
     </script>
 </body>
 
