@@ -323,7 +323,7 @@ footer p {
     display: block;
     margin: 0 auto; 
 }
-.product {
+.product img {
     cursor: pointer;
 }
 
@@ -393,4 +393,6 @@ footer p {
         font-size: 0.9rem;
         padding: 0.5rem;
     }
+ 
+ 
 }
